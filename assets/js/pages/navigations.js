@@ -6,6 +6,57 @@ $(function () {
 		$('#default-modal').modal('show');
 	});
 
+	$('.btn-order').on('click', function(event) {
+		event.preventDefault();
+		
+		$('#order-modal').modal('show');
+	});
+
+	$('#orderTbl').on('click', '.btn-up, .btn-down', function(event) {
+		event.preventDefault();
+
+		var row = $(this).parents("tr:first");
+		if ($(this).is(".btn-up")) {
+			row.insertBefore(row.prev());
+		} else {
+			row.insertAfter(row.next());
+		}
+	});
+
+	$('#orderTbl2').on('click', '.btn-up-2, .btn-down-2', function(event) {
+		event.preventDefault();
+
+		var row = $(this).parents("tr:first");
+		if ($(this).is(".btn-up-2")) {
+			row.insertBefore(row.prev());
+		} else {
+			row.insertAfter(row.next());
+		}
+	});
+
+	$('#orderTbl').on('click', '.btn-detail', function(event) {
+		event.preventDefault();
+
+		var key = {'nav_parent' : $(this).data('id')};
+
+		$.ajax({
+			url : base_url + 'navigations/find_parent',
+			type : 'POST',
+			dataType : 'JSON',
+			data : key,
+			success : function (data) {
+				if (data.type == 'done') {
+					$('#orderTbl2 tbody').html('');
+					for (var i = 0; i < data.msg.length; i++) {
+						$('#orderTbl2 tbody').append('<tr class="row_nav_2" data-id="'+data.msg[i].nav_id+'"><td>'+data.msg[i].nav_name+'</td><td><a><i class="fas fa-arrow-up btn-up-2"></i></a> <a><i class="fas fa-arrow-down btn-down-2"></i></a></td></tr>')
+					}
+
+					$('#order-modal-2').modal('show');
+				}
+			}
+		});
+	});
+
 	var t = $("#navTbl").DataTable({
 		"processing" : true,
 		"language": {
@@ -43,6 +94,58 @@ $(function () {
 		complete: function(){
 			$('#btn-submit').removeClass('btn-warning').addClass('btn-primary').prop('disabled', false);
 		}
+	});
+
+	$('#order-form').on('submit', function(event) {
+		event.preventDefault();
+
+		var nav = [];
+
+		$('.row_nav').each(function(index, el) {
+			nav.push( $(el).data('id') );
+		});
+
+		console.log(nav);
+
+		$.ajax({
+			url : base_url + 'navigations/order_nav',
+			type : 'POST',
+			dataType : 'JSON',
+			data : {'nav' : nav},
+			success: function(data){
+				var sa_title = (data.type == 'done') ? "Success!" : "Failed!";
+				var sa_type = (data.type == 'done') ? "success" : "warning";
+				Swal.fire({ title:sa_title, type:sa_type, html:data.msg }).then(function(){ 
+					if (data.type == 'done') window.location.reload(); 
+				});
+			},
+		});
+	});
+
+	$('#order-form-2').on('submit', function(event) {
+		event.preventDefault();
+
+		var nav = [];
+
+		$('.row_nav_2').each(function(index, el) {
+			nav.push( $(el).data('id') );
+		});
+
+		console.log(nav);
+
+		$.ajax({
+			url : base_url + 'navigations/order_nav_child',
+			type : 'POST',
+			dataType : 'JSON',
+			data : {'nav' : nav},
+			success: function(data){
+				var sa_title = (data.type == 'done') ? "Success!" : "Failed!";
+				var sa_type = (data.type == 'done') ? "success" : "warning";
+				Swal.fire({ title:sa_title, type:sa_type, html:data.msg }).then(function(){ 
+					if (data.type == 'done') $('#order-modal-2').modal('hide');
+				});
+			},
+		});
 	});
 
 	$('#nav_parent').change(function(e) {

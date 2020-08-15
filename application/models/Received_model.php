@@ -17,14 +17,16 @@ class Received_model extends CI_Model
 	/*** DATATABLE SERVER SIDE FOR APPLICANT ***/
 	function _get_applicant_query(){
 		$__order 			= array('ReceiptSendPkgID' => 'DESC');
-        $__column_search    = array('InvID', 'InvNo', 'PONo', 'PO_Type', 'ProductName', 'ReceiverName', 'AE_Name', 'AgencyName', 'AdvertiserName', 'Gross', 'AgencyDisc', 'Nett', 'ResiNoFromCourier');
-        $__column_order     = array('InvID', 'InvNo', 'PONo', 'PO_Type', 'ProductName', 'ReceiverName', 'AE_Name', 'AgencyName', 'AdvertiserName', 'Gross', 'AgencyDisc', 'Nett', 'ResiNoFromCourier');
-		$this->db->select('*');
-     $this->db->from('vw_received_by_client_invoices');
-     $i = 0;
-     $search_value = $this->input->post('search')['value'];
-     foreach ($__column_search as $item){
-         if ($search_value){
+        $__column_search    = array('InvID', 'InvNo', 'PONo', 'PO_Type', 'ProductName', 'AE_Name', 'AgencyName', 'AdvertiserName', 'Gross', 'AgencyDisc', 'Nett', 'ResiNoFromCourier', 'ReceiptSendPkgReceiver',  'InvType', 'autocomplete');
+        $__column_order     = array('InvID', 'InvNo', 'PONo', 'PO_Type', 'ProductName', 'AE_Name', 'AgencyName', 'AdvertiserName', 'Gross', 'AgencyDisc', 'Nett', 'ResiNoFromCourier', 'ReceiptSendPkgReceiver',  'InvType', 'autocomplete');
+
+        $this->db->select('*');
+        $this->db->from('view_tracking_invoices');
+        $this->db->where('InvStsID', 6);
+        $i = 0;
+        $search_value = $this->input->post('search')['value'];
+        foreach ($__column_search as $item){
+           if ($search_value){
                 if ($i === 0){ // looping awal
                 	$this->db->group_start(); 
                 	$this->db->like("UPPER({$item})", strtoupper($search_value), FALSE);
@@ -62,7 +64,8 @@ class Received_model extends CI_Model
     }
 
     function get_applicant_count_all(){
-        $this->db->from('vw_received_by_client_invoices');
+        $this->db->from('view_tracking_invoices');
+        $this->db->where('InvStsID', 6);
         return $this->db->count_all_results();
     }
 }

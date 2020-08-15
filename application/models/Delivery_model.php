@@ -17,15 +17,16 @@ class Delivery_model extends CI_Model
 	/*** DATATABLE SERVER SIDE FOR APPLICANT ***/
 	function _get_applicant_query(){
 		$__order 			= array('ReceiptSendPkgID' => 'DESC');
-        $__column_search    = array('ReceiptSendPkgID', 'PeriodYear', 'PeriodMonth', 'InvNo', 'PONo', 'PO_Type', 'AgencyName', 'AdvertiserName', 'ProductName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett', 'SendDate', 'CourierName', 'ResiNoFromCourier');
-        $__column_order     = array('ReceiptSendPkgID', 'PeriodYear', 'InvNo', 'AgencyName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett', 'SendDate', 'CourierName', 'ResiNoFromCourier');
+        $__column_search    = array('ReceiptSendPkgID', 'PeriodYear', 'PeriodMonth', 'InvNo', 'PONo', 'PO_Type', 'AgencyName', 'AdvertiserName', 'ProductName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett', 'SendDate', 'CourierName', 'ResiNoFromCourier', 'InvType', 'autocomplete');
+        $__column_order     = array('ReceiptSendPkgID', 'PeriodYear', 'InvNo', 'AgencyName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett', 'SendDate', 'CourierName', 'ResiNoFromCourier', 'InvType', 'autocomplete');
 
-		$this->db->select('*');
-     $this->db->from('vw_ready_to_send_invoices');
-     $i = 0;
-     $search_value = $this->input->post('search')['value'];
-     foreach ($__column_search as $item){
-         if ($search_value){
+        $this->db->select('*');
+        $this->db->from('view_tracking_invoices');
+        $this->db->where_in('InvStsID', [3,4,5]);
+        $i = 0;
+        $search_value = $this->input->post('search')['value'];
+        foreach ($__column_search as $item){
+           if ($search_value){
                 if ($i === 0){ // looping awal
                 	$this->db->group_start(); 
                 	$this->db->like("UPPER({$item})", strtoupper($search_value), FALSE);
@@ -63,7 +64,8 @@ class Delivery_model extends CI_Model
     }
 
     function get_applicant_count_all(){
-        $this->db->from('vw_ready_to_send_invoices');
+        $this->db->from('view_tracking_invoices');
+        $this->db->where_in('InvStsID', [3,4,5]);
         return $this->db->count_all_results();
     }
 }

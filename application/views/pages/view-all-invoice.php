@@ -64,7 +64,8 @@
 								<div class="col-2 form-group">
 									<select class="form-control" id="filterType">
 										<option value="">Type</option>
-										<option value="M">Manual</option>
+										<option value="M1">Manual (Off Air)</option>
+										<option value="M0">Manual (On Air)</option>
 										<option value="B">BMS</option>
 									</select>
 								</div>
@@ -101,6 +102,7 @@
 										<th width="70">Nett</th>
 										<th width="80">Status</th>
 										<th width="150">Date Added</th>
+										<th width="150">Entry By</th>
 										<th width="20"><i class="fas fa-cogs"></i></th>
 									</tr>
 								</thead>

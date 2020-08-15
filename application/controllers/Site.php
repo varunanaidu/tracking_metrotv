@@ -1,3 +1,4 @@
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 // TEST GITIGNORE IF IT'S WORK
@@ -31,11 +32,56 @@ class Site extends MY_Controller {
 			$this->fragment['header_child']		= 'Dashboard';
 			$this->fragment['breadcrumb'] = ['Dashboard', 'Dashboard'];
 			$this->fragment['pagename'] = 'pages/view-dashboard.php';
+			$this->fragment['js']		= base_url('assets/js/pages/dashboard.js');
+			$this->fragment['months']   = array( 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 
 			$this->load->view('layout/main-site', $this->fragment);
-		
+
 		}
 
+	}
+
+	public function find()
+	{
+		// echo json_encode($this->input->post());die;
+		$PeriodMonth	= $this->input->post('PeriodMonth');
+		$PeriodYear		= $this->input->post('PeriodYear');
+		$temp 			= array();
+
+		$check = $this->sitemodel->custom_query('SELECT * FROM vw_inv_sts WHERE InvStsID IN (1,2,3,4,5,6,8) ORDER BY InvStsID ASC');
+
+		foreach ($check as $row) {
+			$data = array();
+			$data2 = array();
+			$data['InvStsName'] = $row->InvStsName;
+
+			$q1 = 'SELECT COUNT(ReceiptSendPkgID) AS Total, InvStsName FROM vw_tracking WHERE InvStsID = '.$row->InvStsID.' AND PeriodMonth = '.$PeriodMonth.' AND PeriodYear = '.$PeriodYear.' AND InvType = 0 AND autocomplete = 1';
+			$check_q1 = $this->sitemodel->custom_query($q1);
+
+			foreach ($check_q1 as $row_q1) {
+				$data['manual_off_air'] = $row_q1->Total;
+			}
+
+			$q2 = 'SELECT COUNT(ReceiptSendPkgID) AS Total, InvStsName FROM vw_tracking WHERE InvStsID = '.$row->InvStsID.' AND PeriodMonth = '.$PeriodMonth.' AND PeriodYear = '.$PeriodYear.' AND InvType = 0 AND autocomplete = 0';
+			$check_q2 = $this->sitemodel->custom_query($q2);
+
+			foreach ($check_q2 as $row_q2) {
+				$data['manual_on_air'] = $row_q2->Total;
+			}
+
+			$q3 = 'SELECT COUNT(ReceiptSendPkgID) AS Total, InvStsName FROM vw_tracking WHERE InvStsID = '.$row->InvStsID.' AND PeriodMonth = '.$PeriodMonth.' AND PeriodYear = '.$PeriodYear.' AND InvType = 1 ';
+			$check_q3 = $this->sitemodel->custom_query($q3);
+
+			foreach ($check_q3 as $row_q3) {
+				$data['bms'] = $row_q3->Total;
+			}
+
+			$this->response['data'][] = $data;
+		}
+
+		$this->response['type'] = 'done';
+		echo json_encode($this->response);
+		exit;
 	}
 
 	public function login()
@@ -78,6 +124,35 @@ class Site extends MY_Controller {
 			"onlines"	=> $ckbox,
 			"server"	=> $server,
 		];
+
+		/*$temp = new stdClass;
+		$rest = [];
+		$data = new stdClass;
+
+		$temp->CEMPNIP = '1193748';
+		$temp->CEMPNAME = 'Seftian Alfredo';
+		$temp->DATE_JOINGROUP = '01-06-2019';
+		$temp->CDPTNO = '003';
+		$temp->CDPTDESC = 'FIN ADM & TS - TEKNIK';
+		$temp->CDICNO = '032';
+		$temp->CDICDESC = 'IT';
+		$temp->CSDPNO = '208';
+		$temp->CSDPDESC = 'MIS';
+		$temp->CDACNO = '123';
+		$temp->CDACDESC = 'MIS';
+		$temp->CJBTDESC = 'PROGRAMMER';
+		$temp->CEMPEMAILADDR = 'SEFTIAN.ALFREDO@METROTVNEWS.COM';
+		$temp->CEMPGENDER = 'L';
+		$temp->DATE_BIRTH = '02-09-1997';
+		$temp->CGOLNO = '2';
+		$temp->APPROVELEVEL = null;
+		$temp->BIO_APPROVAL_REQ = '13-MAR-20';
+		$temp->IS_SPECIALLOGIN = null;
+
+
+		$rest[] = $temp;
+
+		$data->rest = $rest;*/
 		
 		$curl = new Libcurl("employee", "login");
 		$data = $curl->__pages($post);

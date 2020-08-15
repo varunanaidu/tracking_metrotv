@@ -16,7 +16,7 @@ $(function () {
 			dataType : 'JSON',
 			data : data,
 			beforeSend : function () {
-			$('#childContainer').css('display', 'none');	
+				$('#childContainer').css('display', 'none');	
 			},
 			success : function (data) {
 				if (data.type == 'done' ) {
@@ -52,6 +52,7 @@ $(function () {
 			data : data,
 			success : function (data) {
 				if (data.type == 'done') {
+					var penerima = '';
 					$('#childContainer').removeAttr('style');
 					$('#detail_body').html('');
 					$('#detail_body').append('<div class="cella" data-title="Invoice No">'+data.msg_2[0].InvNo+'</div><div class="cella" data-title="PO No">'+data.msg_2[0].PONo+'</div><div class="cella" data-title="Agency">'+data.msg_2[0].AgencyName+'</div><div class="cella" data-title="Advertiser">'+data.msg_2[0].AdvertiserName+'</div><div class="cella" data-title="AE">'+data.msg_2[0].AE_Name+'</div><div class="cella" data-title="Status Pengiriman">'+data.msg_2[0].InvStsName+'</div>')
@@ -61,13 +62,17 @@ $(function () {
 						var keterangan;
 						switch( data.msg[i].InvStsCode ){
 							case '3A':
+							penerima	= ' : ' + data.msg[i].CourierName;
 							keterangan = data.msg[i].ResiNoFromCourier;
 							break;
 							case '3B':
+							penerima	= ' : ' + data.msg[i].CourierName;
 							keterangan = data.msg[i].ResiNoFromCourier;
 							break;
 							case '4A':
-							keterangan = '<a style="color:black !important;" target="_blank" href="'+base_url+'assets/images/invoices/'+data.msg[i].ReceiptPathFilename+'">'+data.msg[i].ReceiptPathFilename+'</a>' ;
+							penerima	= ' : ' + data.msg[i].ReceiptSendPkgReceiver;
+							keterangan = '<a href="javascript:void(0)" id="linkImage" style="color:black;"><strong>Click here to view delivery receipt.</strong></a>' ;
+							$('#imgContainer').attr('src', 'assets/images/invoices/' + data.msg[i].ReceiptPathFilename);
 							break;
 							case '5':
 							keterangan = data.msg[i].ReasonReturned;
@@ -75,7 +80,7 @@ $(function () {
 							default:
 							keterangan = '';
 						}
-						$('#resTbl').append('<div class="rowa"><div class="cella" data-title="Tanggal">'+moment(data.msg[i].EntryBy_date).format('MM/DD/YYYY HH:mm:ss')+'</div><div class="cella" data-title="Status">'+data.msg[i].InvStsName+'</div><div class="cella" data-title="Keterangan">'+keterangan+'</div></div>')
+						$('#resTbl').append('<div class="rowa"><div class="cella" data-title="Tanggal">'+moment(data.msg[i].EntryBy_date).format('MM/DD/YYYY HH:mm:ss')+'</div><div class="cella" data-title="Status">'+data.msg[i].InvStsName+penerima+'</div><div class="cella" data-title="Keterangan">'+keterangan+'</div></div>')
 					}
 				}else{
 					Swal.fire({
@@ -94,6 +99,12 @@ $(function () {
 
 	$('#signOutBtn').on('click', function() {
 		window.location.href = base_url + 'site/signout';
+	});
+
+	$(document).on('click', '#linkImage', function(event) {
+		event.preventDefault();
+		
+		$('#default-modal').modal('show');
 	});
 	
 });

@@ -63,6 +63,7 @@ class Delivery extends MY_Controller
 			$col[] = $SendDate;
 			$col[] = $messenger;
 			$col[] = $row->ResiNoFromCourier;
+			$col[] = ($row->InvType == 0 ? ($row->autocomplete == 0 ? 'Manual (On Air)' : 'Manual (Off Air)') : 'BMS');
 			$col[] = $button;
 			$col[] = $row->InvID;
 			$data[] = $col;

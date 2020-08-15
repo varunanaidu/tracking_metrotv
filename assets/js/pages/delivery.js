@@ -34,7 +34,7 @@ $(function () {
 			"targets"	: [7],
 			"className" : "text-right",
 		},{
-			"targets"	: [11],
+			"targets"	: [12],
 			"orderable" : false,
 			"className" : "dt-center",
 		}],
@@ -46,7 +46,7 @@ $(function () {
 		var data_row = t.rows( { selected: true } ).data();
 
 		for (var i = 0; i < data_row.length; i++) {
-			InvID[i] = data_row[i][12];
+			InvID[i] = data_row[i][13];
 		}
 
 		if (InvID.length > 0) {

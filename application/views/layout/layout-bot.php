@@ -22,11 +22,17 @@
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url(); ?>assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables -->
-<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables/jquery.dataTables.js"></script>
-<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-select/js/dataTables.select.js"></script>
-<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/js/dataTables.buttons.js"></script>
-<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/js/buttons.print.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-select/js/dataTables.select.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/js/buttons.flash.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/jszip/jszip.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+
 
 <!-- JQUERY FORM -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
@@ -38,6 +44,8 @@
 <script src="<?php echo base_url(); ?>assets/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- SELECT2 -->
 <script src="<?php echo base_url(); ?>assets/adminlte/plugins/select2/js/select2.min.js"></script>
+<!-- CHART JS -->
+<script src="<?php echo base_url(); ?>assets/adminlte/plugins/chart.js/Chart.min.js"></script>
 <!-- Page Script -->
 <?php 
 if (isset($js)) {

@@ -12,12 +12,15 @@ class Navigations extends MY_Controller
 	{
 		if( !$this->hasLogin() ) redirect('site/login');
 
+		$menu = array();
 		$this->fragment['header_parent'] = 'Developer';
 		$this->fragment['header_child']		= 'Navigation';
 		$this->fragment['breadcrumb'] = ['Developer', 'Navigation'];
 		$this->fragment['js']		= base_url('assets/js/pages/navigations.js');
 		$this->fragment['parent']	= $this->sitemodel->view('vw_nav', 'nav_id, nav_name', array('nav_parent' => '0', 'nav_level' => '0') );
 		$this->fragment['check_last'] = $this->sitemodel->view('vw_nav', 'MAX(nav_order) AS LAST', array('nav_parent'=> '0', 'nav_level'=>'0' ));
+		$this->fragment['parent_menu'] = $this->sitemodel->view('vw_nav', '*', ['nav_parent'=>0], NULL, 'nav_order ASC');
+
 		$this->fragment['pagename'] = 'pages/view-nav';
 		$this->load->view('layout/main-site', $this->fragment);
 	}
@@ -65,6 +68,27 @@ class Navigations extends MY_Controller
 		if ( empty($key) ){$this->response['msg'] = "Invalid parameter.";echo json_encode($this->response);exit;}
 		/*** Accessing DB Area ***/
 		$check = $this->Navigations_model->find($key);
+		if (!$check) {$this->response['msg'] = "No data found.";echo json_encode($this->response);exit;}
+		/*** Result Area ***/
+		$this->response['type'] = 'done';
+		$this->response['msg'] = $check;
+		echo json_encode($this->response);
+		exit;
+	}
+
+	function find_parent(){
+		/*** Check Session ***/
+		if ( !$this->hasLogin() ){$this->response['msg'] = "Session expired, Please refresh your browser.";echo json_encode($this->response);exit;}
+		/*** Check POST or GET ***/
+		if ( !$_POST ){$this->response['msg'] = "Invalid parameters 1.";echo json_encode($this->response);exit;}
+		/*** Params ***/
+		/*** Required Area ***/
+		$nav_parent = $this->input->post("nav_parent");
+		/*** Optional Area ***/
+		/*** Validate Area ***/
+		if ( empty($nav_parent) ){$this->response['msg'] = "Invalid parameter.";echo json_encode($this->response);exit;}
+		/*** Accessing DB Area ***/
+		$check = $this->sitemodel->view('vw_nav', '*', ['nav_parent'=>$nav_parent], NULL, 'nav_order ASC');
 		if (!$check) {$this->response['msg'] = "No data found.";echo json_encode($this->response);exit;}
 		/*** Result Area ***/
 		$this->response['type'] = 'done';
@@ -156,6 +180,52 @@ class Navigations extends MY_Controller
 		/*** Result Area ***/
 		$this->response['type'] = 'done';
 		$this->response['msg'] = $check;
+		echo json_encode($this->response);
+		exit;
+	}
+
+	function order_nav()
+	{
+		/*** Check Session ***/
+		if ( !$this->hasLogin() ){$this->response['msg'] = "Session expired, Please refresh your browser.";echo json_encode($this->response);exit;}
+		/*** Check POST or GET ***/
+		if ( !$_POST ){$this->response['msg'] = "Invalid parameters.";echo json_encode($this->response);exit;}
+		/*** Params ***/
+		/*** Required Area ***/
+		$nav = $this->input->post("nav");
+		for ( $i = 0; $i < sizeof($nav); $i++) { 
+			$data_order = [
+				'nav_order' => $i+1
+			];
+
+			$this->sitemodel->update('tab_nav', $data_order, ['nav_id'=>$nav[$i]]);
+		}
+		/*** Result Area ***/
+		$this->response['type'] = 'done';
+		$this->response['msg'] = 'Successfully Order Navigations';
+		echo json_encode($this->response);
+		exit;
+	}
+
+	function order_nav_child()
+	{
+		/*** Check Session ***/
+		if ( !$this->hasLogin() ){$this->response['msg'] = "Session expired, Please refresh your browser.";echo json_encode($this->response);exit;}
+		/*** Check POST or GET ***/
+		if ( !$_POST ){$this->response['msg'] = "Invalid parameters.";echo json_encode($this->response);exit;}
+		/*** Params ***/
+		/*** Required Area ***/
+		$nav = $this->input->post("nav");
+		for ( $i = 0; $i < sizeof($nav); $i++) { 
+			$data_order = [
+				'nav_order' => $i+1
+			];
+
+			$this->sitemodel->update('tab_nav', $data_order, ['nav_id'=>$nav[$i]]);
+		}
+		/*** Result Area ***/
+		$this->response['type'] = 'done';
+		$this->response['msg'] = 'Successfully Order Navigations';
 		echo json_encode($this->response);
 		exit;
 	}

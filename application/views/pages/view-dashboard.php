@@ -30,14 +30,55 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title"><?= $header_child ?></h3>
 					</div>
-					<!-- /.card -->
+					<div class="card-body">
+						<div class="row">
+							<div class="col-2 form-group">
+								<select class="form-control" id="filterYear">
+									<?php 
+									for ( $i = date('Y') ; $i > date('Y') - 5 ; $i--) { 
+										?>
+										<option <?= ($i == date('Y') ? 'selected=""' : '' ) ?> ><?= $i ?></option>
+										<?php 
+									}
+									?>
+								</select>
+							</div>
+							<div class="col-2 form-group">
+								<select class="form-control" id="filterMonth">
+									<?php 
+									if (isset($months)) {
+										for ( $i = 0; $i < sizeof($months) ; $i++) { 
+											?>
+											<option <?= ( $i+1 == date('m') ? 'selected=""' : '' ) ?> value="<?= $i+1 ?>"><?= $months[$i] ?></option>
+											<?php 
+										}
+									}
+									?>
+								</select>
+							</div>
+							<div class="col-2 form-group">
+								<button class="btn btn-md btn-info btn-filter">Filter</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="chart">
+									<canvas id="invChart" style="min-height: 300px; height: 300px; max-height: 300px;"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<!-- /.col -->
+				<!-- /.card -->
 			</div>
-			<!-- /.row -->
-		</section>
-		<!-- /.content -->
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</section>
+	<!-- /.content -->
 
-	</div>
+</div>
 <!-- /.content-wrapper -->

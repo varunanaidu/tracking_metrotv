@@ -23,9 +23,9 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/select2/css/select2.min.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/main.css">
 	<!-- DataTables -->
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-select/css/select.bootstrap4.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-select/css/select.bootstrap4.min.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 	<style type="text/css">
 		a.active.parent{

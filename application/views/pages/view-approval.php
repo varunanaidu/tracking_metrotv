@@ -52,6 +52,7 @@
 									<th width="70">Gross</th>
 									<th width="20">(%)Disc</th>
 									<th width="70">Nett</th>
+									<th width="70">Type</th>
 									<th width="70"><i class="fas fa-cogs"></i></th>
 								</tr>
 							</thead>

@@ -38,6 +38,11 @@
 			color: white;
 		}
 
+		a:hover{
+			background-color: yellow;
+			color: blue !important;
+		}
+
 	</style>
 </head>
 <body>
@@ -140,7 +145,7 @@
 					</div>
 					<div class="limitera">
 						<div class="container-tablea100">
-							<div class="wrap-tablea100">
+							<div class="wrap-tablea100" style="width: 890px;">
 								<div class="tablea" id="resTbl">
 									<div class="rowa headera">
 										<div class="cella">
@@ -164,11 +169,30 @@
 			</div>
 		</div>
 		<!-- our info End -->
+
+		<div id="default-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close text-red" data-dismiss="modal" tabindex="-1">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="row clearfix">
+							<div class="col-lg-12">
+								<img src="" alt="" id="imgContainer" style="width: inherit;">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 	<footer>
 		<!--? Footer Start-->
 		<div class="footer">
-			<p> More Information : MIS (ext. 25056/25055) </p>
+			<p> More Information : MIS (ext. 22005/22039/22040) </p>
 		</div>
 	</footer>
 	<!-- Scroll Up -->
@@ -210,9 +234,9 @@
 	<!-- Jquery Plugins, main Jquery -->	
 	<script src="<?php echo base_url(); ?>assets/front/js/plugins.js"></script>
 	<script src="<?php echo base_url(); ?>assets/front/js/main.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/pages/find.js"></script>
 	<script src="<?php echo base_url(); ?>assets/adminlte/plugins/moment/moment.min.js"></script>
 	<!-- Sweetalert -->
 	<script src="<?php echo base_url(); ?>assets/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/pages/find.js"></script>
 </body>
 </html>

@@ -36,6 +36,9 @@
 							<i class="fa fa-plus text-blue"></i> New Entry</button>
 						</div>
 						<!-- /.card-header -->
+						<div class="card-body">
+							<button type="button" class="btn btn-sm btn-success btn-order"><i class="fas fa-sort"></i> Order Menu</button>
+						</div>
 						<div class="card-body table-responsive">
 							<table id="navTbl" class="table table-bordered table-hover" style="font-size: 10pt !important;">
 								<thead>
@@ -111,6 +114,79 @@
 							<input type="text" class="collapse" id="type" name="type" value="">
 							<input type="text" class="collapse" id="id" name="id" value="">
 							<button type="submit" id="btn-submit" class="btn btn-primary">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="order-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<form id="order-form" accept-charset="UTF-8">
+						<div class="modal-header">
+							<button type="button" class="close text-red" data-dismiss="modal" tabindex="-1">&times;</button>
+						</div>
+						<div class="modal-body">
+							<div class="row clearfix">
+								<div class="form-group col-md-12 table-responsive">
+									<table class="table table-bordered table-hover" id="orderTbl">
+										<thead>
+											<tr>
+												<th>Nav Name</th>
+												<th>Options</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											if (isset($parent_menu) and $parent_menu != 0) {
+												foreach ($parent_menu as $row) {
+													?>
+													<tr class="row_nav" data-id="<?= $row->nav_id ?>">
+														<td class="row_nav_name"><?= $row->nav_name ?></td>
+														<td><a><i class="fas fa-arrow-up btn-up"></i></a> <a><i class="fas fa-arrow-down btn-down"></i></a><a><i class="fas fa-eye btn-detail" data-id="<?= $row->nav_id ?>"></i></a></td>
+													</tr>
+													<?php 
+												}
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="btn-submit-2" class="btn btn-primary">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="order-modal-2" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<form id="order-form-2" accept-charset="UTF-8">
+						<div class="modal-header">
+							<button type="button" class="close text-red" data-dismiss="modal" tabindex="-1">&times;</button>
+						</div>
+						<div class="modal-body">
+							<div class="row clearfix">
+								<div class="form-group col-md-12 table-responsive">
+									<table class="table table-bordered table-hover" id="orderTbl2">
+										<thead>
+											<tr>
+												<th>Nav Name</th>
+												<th>Options</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="btn-submit-3" class="btn btn-primary">Save</button>
 						</div>
 					</form>
 				</div>

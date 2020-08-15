@@ -73,11 +73,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-// TEST GITIGNORE IF IT'S WORK
-
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '192.168.100.37',
+	// 'hostname' => 'localhost',
 	'username' => 'dev',
 	'password' => 'dev123;',
 	'database' => 'tracking_db',

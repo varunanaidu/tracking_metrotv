@@ -225,7 +225,7 @@ class Invoice extends MY_Controller
 			$col = array();
 			$col[] = $row->InvID;
 			$col[] = $row->PeriodYear . ' - ' .  (strlen($row->PeriodMonth) == 1 ? '0'.$row->PeriodMonth : $row->PeriodMonth);
-			$col[] = ($row->InvType == 0 ? 'Manual' : 'BMS');
+			$col[] = ($row->InvType == 0 ? ($row->autocomplete == 0 ? 'Manual (On Air)' : 'Manual (Off Air)') : 'BMS');
 			$col[] = '<strong>'.$row->InvNo.'</strong>' . '<br>' . '<i>'.$row->PONo.'</i> <br> <i>'.$row->PO_Type.'</i>';
 			$col[] = '<i>'.$row->AgencyName.'</i> <br> <i>'.$row->AdvertiserName .'</i> <br> <strong>'.$row->ProductName.'</strong>';
 			$col[] = $row->AE_Name;
@@ -234,6 +234,7 @@ class Invoice extends MY_Controller
 			$col[] = 'Rp. ' . number_format($row->Nett,0,".",".");
 			$col[] = $row->InvStsName;
 			$col[] = date('d M Y H:i:s', strtotime($row->EntryBy_date));
+			$col[] = $row->EntryBy;
 			$col[] = '<button class="btn btn-sm btn-info btn-detail" title="View" data-id="'.$row->InvID.'" data-tr="'.$row->ReceiptSendPkgID.'"><i class="fas fa-eye"></i></button>&nbsp;';
 			$data[] = $col;
 		}

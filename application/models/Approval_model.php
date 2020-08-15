@@ -17,16 +17,12 @@ class Approval_model extends CI_Model
 	/*** DATATABLE SERVER SIDE FOR APPLICANT ***/
 	function _get_applicant_query(){
 		$__order 			= array('ReceiptSendPkgID' => 'DESC');
-        $__column_search    = array('ReceiptSendPkgID', 'PeriodYear', 'PeriodMonth', 'InvNo', 'PONo', 'PO_Type', 'AgencyName', 'AdvertiserName', 'ProductName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett');
-        $__column_order     = array('ReceiptSendPkgID', 'PeriodYear', 'InvNo', 'AgencyName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett');
-        $check_tr           = $this->get_InvId_from_tracking();
+        $__column_search    = array('ReceiptSendPkgID', 'PeriodYear', 'PeriodMonth', 'InvNo', 'PONo', 'PO_Type', 'AgencyName', 'AdvertiserName', 'ProductName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett', 'InvType', 'autocomplete');
+        $__column_order     = array('ReceiptSendPkgID', 'PeriodYear', 'InvNo', 'AgencyName', 'AE_Name', 'Gross', 'AgencyDisc', 'Nett', 'InvType', 'autocomplete');
 
         $this->db->select('*');
-        $this->db->from('vw_send_by_billing_invoices');
-
-        foreach ($check_tr as $row) {
-            $this->db->where('InvID !=', $row->InvID);
-        }
+        $this->db->from('view_tracking_invoices');
+        $this->db->where('InvStsID', 2);
 
         $i = 0;
         $search_value = $this->input->post('search')['value'];
@@ -69,7 +65,8 @@ class Approval_model extends CI_Model
     }
 
     function get_applicant_count_all(){
-        $this->db->from('vw_send_by_billing_invoices');
+        $this->db->from('view_tracking_invoices');
+        $this->db->where('InvStsID', 2);
         return $this->db->count_all_results();
     }
 

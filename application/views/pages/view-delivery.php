@@ -50,11 +50,12 @@
 									<th>AGENCY NAME /<br> ADVERTISER NAME /<br> PRODUCT NAME</th>
 									<th>AE NAME</th>
 									<th width="70">Gross</th>
-									<th width="20">(%)Disc</th>
+									<th width="10">(%)Disc</th>
 									<th width="70">Nett</th>
 									<th>Send Date</th>
 									<th>Messenger</th>
 									<th>Receipt Number</th>
+									<th>Type</th>
 									<th><i class="fas fa-cogs"></i></th>
 								</tr>
 							</thead>

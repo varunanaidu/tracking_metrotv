@@ -34,7 +34,7 @@ $(function () {
 			"targets"	: [7],
 			"className" : "text-right",
 		},{
-			"targets"	: [8],
+			"targets"	: [9],
 			"orderable" : false,
 			"className" : "dt-body-center",
 		}],

@@ -42,7 +42,7 @@ $(function () {
 				"targets"		: [8],
 				"className" 	: "text-right",
 			},{
-				"targets"		: [11],
+				"targets"		: [12],
 				"orderable" 	: false,
 				"className" 	: "dt-body-center",
 			}],

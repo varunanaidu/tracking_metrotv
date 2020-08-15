@@ -26,6 +26,7 @@ class Approval extends MY_Controller
 
 	function view_tracking()
 	{
+		// echo json_encode($this->input->post());die;
 		$data = array();
 		$res = $this->Approval_model->get_applicant();
 		$temp = $this->db->last_query();
@@ -41,6 +42,7 @@ class Approval extends MY_Controller
 			$col[] = number_format($row->Gross,0,".",".");
 			$col[] = $row->AgencyDisc;
 			$col[] = number_format($row->Nett,0,".",".");
+			$col[] = ($row->InvType == 0 ? ($row->autocomplete == 0 ? 'Manual (On Air)' : 'Manual (Off Air)') : 'BMS');
 			$col[] = '<button class="btn btn-sm btn-info btn-detail" title="Detail" data-id="'.$row->ReceiptSendPkgID.'"><i class="fas fa-eye"></i></button>&nbsp;';
 			$data[] = $col;
 		}

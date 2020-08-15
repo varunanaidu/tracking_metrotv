@@ -49,6 +49,8 @@
 									<th>Send Date</th>
 									<th>Messenger</th>
 									<th>Receipt Number</th>
+									<th>Receive By</th>
+									<th width="70">Type</th>
 									<th><i class="fas fa-cogs"></i></th>
 								</tr>
 							</thead>
